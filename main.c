@@ -44,6 +44,7 @@ void teacherMenu(){
 
     switch(choice){
         case 1:
+            viewAttendanceSheetT();
             break;
         case 2:
             break;
@@ -52,6 +53,7 @@ void teacherMenu(){
         case 4:
             break;
         case 5:
+            exit(1);
             break;
     }
 }
@@ -265,6 +267,16 @@ void recordAttendance(){
 
                 fwrite(&std,sizeof(std),1,fp);
                 fclose(fp);
+
+                FILE *fpointer;
+
+                time_t date = time(NULL);
+                char *filename = ctime(&date);
+
+                fpointer = fopen("Attendance Sheet.txt", "ab+");
+                    fwrite(&std,sizeof(std),1,fpointer);
+                fclose(fpointer);
+
             }else if(strcmp(strupr(section), "YA-2") == 0 || strcmp(strupr(section), "1-YA-2") == 0 || strcmp(strupr(section), "1YA-2") == 0 || strcmp(strupr(section), "1-YA2") == 0 || strcmp(strupr(section), "YA2") == 0 || strcmp(strupr(section), "1YA2") == 0){
                 FILE *fp;
 
@@ -295,6 +307,16 @@ void recordAttendance(){
 
                 fwrite(&std,sizeof(std),1,fp);
                 fclose(fp);
+
+                FILE *fpointer;
+
+                time_t date = time(NULL);
+                char *filename = ctime(&date);
+
+                fpointer = fopen("Attendance Sheet.txt", "ab+");
+                    fwrite(&std,sizeof(std),1,fpointer);
+                fclose(fpointer);
+
             }else{
                 gotoxy(15,18);
                 printf("Error! Invalid Section");
@@ -332,6 +354,16 @@ void recordAttendance(){
 
                 fwrite(&std,sizeof(std),1,fp);
                 fclose(fp);
+
+                FILE *fpointer;
+
+                time_t date = time(NULL);
+                char *filename = ctime(&date);
+
+                fpointer = fopen("Attendance Sheet.txt", "ab+");
+                    fwrite(&std,sizeof(std),1,fpointer);
+                fclose(fpointer);
+
             }else if(strcmp(strupr(section), "YA-2") == 0 || strcmp(strupr(section), "1-YA-2") == 0 || strcmp(strupr(section), "1YA-2") == 0 || strcmp(strupr(section), "1-YA2") == 0 || strcmp(strupr(section), "YA2") == 0 || strcmp(strupr(section), "1YA2") == 0){
                 FILE *fp;
 
@@ -362,6 +394,16 @@ void recordAttendance(){
 
                 fwrite(&std,sizeof(std),1,fp);
                 fclose(fp);
+
+                FILE *fpointer;
+
+                time_t date = time(NULL);
+                char *filename = ctime(&date);
+
+                fpointer = fopen("Attendance Sheet.txt", "ab+");
+                    fwrite(&std,sizeof(std),1,fpointer);
+                fclose(fpointer);
+
             }else{
                 gotoxy(15,18);
                 printf("Error! Invalid Section");
@@ -404,7 +446,53 @@ void recordAttendance(){
     }
 }
 
-void viewAttendanceSheet(){
+void viewAttendanceSheetS(){
+    system("cls");
+
+    FILE *fp;
+    int i=1,j;
+    struct student std;
+
+    gotoxy(15,5);
+    printf("---View Attendance Sheet---");
+    gotoxy(15,7);
+    printf("Student No.        Name of Student        Vaccination Status       Time of Arrival");
+    gotoxy(15,8);
+    printf("------------------------------------------------------------------------------------------------------");
+
+    fp = fopen("Attendance Sheet.txt","rb+");
+    if(fp == NULL){
+        gotoxy(15,10);
+        printf("Error opening file.");
+        getch();
+        studentMenu();
+    }
+    j=10;
+    int a = 20;
+    sleep(1);
+    while(fread(&std,sizeof(std),1,fp) == 1){
+        gotoxy(15,j);
+        printf("%s", std.studentNumber);
+        gotoxy(15+a-1,j);
+        printf("%s, %s", std.lastname, std.firstname);
+        gotoxy(15+(a+23),j);
+        printf("%s", std.vaccinationStatus);
+        gotoxy(15+(a+48),j);
+        printf("%s", std.arrivalTime);
+        i++;
+        j++;
+    }
+    fclose(fp);
+    gotoxy(15,j+3);
+
+    printf("Press any key to continue...");
+    getch();
+    studentMenu();
+}
+
+void viewAttendanceSheetT(){
+
+    system("cls");
 
     FILE *fp;
     int i=1,j;
@@ -502,7 +590,7 @@ void viewAttendanceSheet(){
                 printf("Error! Invalid Section");
                 sleep(3);
                 system("cls");
-                viewAttendanceSheet();
+                viewAttendanceSheetT();
             }
         }else if(strcmp(strupr(course), "BSIT") == 0){
             if(strcmp(strupr(section), "YA-1") == 0 || strcmp(strupr(section), "1-YA-1") == 0 || strcmp(strupr(section), "1YA-1") == 0 || strcmp(strupr(section), "1-YA1") == 0 || strcmp(strupr(section), "YA1") == 0 || strcmp(strupr(section), "1YA1") == 0){
@@ -586,14 +674,14 @@ void viewAttendanceSheet(){
                 printf("Error! Invalid Section");
                 sleep(3);
                 system("cls");
-                viewAttendanceSheet();
+                viewAttendanceSheetT();
             }
         }else{
             gotoxy(15,18);
             printf("Error! Invalid Course!");
             sleep(3);
             system("cls");
-            viewAttendanceSheet();
+            viewAttendanceSheetT();
         }
 
 
@@ -638,7 +726,7 @@ void studentMenu(){
                 break;
             case 2:
                 system("cls");
-                viewAttendanceSheet();
+                viewAttendanceSheetS();
                 break;
             case 3:
                 viewGrades();
@@ -647,6 +735,7 @@ void studentMenu(){
                 viewAcademicCalendar();
                 break;
             case 5:
+                exit(1);
                 break;
             default:
                 gotoxy(15,14);

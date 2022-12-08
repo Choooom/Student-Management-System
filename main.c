@@ -1384,11 +1384,12 @@ int main()
 
         system("cls");
         gotoxy(15,5);
-        printf("Proceed as:");
+        printf("---Main Menu---");
+
         gotoxy(15,7);
-        printf("1. Teacher");
+        printf("1. Proceed as Teacher");
         gotoxy(15,8);
-        printf("2. Student");
+        printf("2. Proceed as Student");
         gotoxy(15,9);
         printf("3. Exit the program");
 

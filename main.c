@@ -330,11 +330,13 @@ void teacherMenu(){
 //---------------------Loading Screen Function redirecting to Teacher's Menu Function
 void loadingScreen(){
     system("cls");
-
+	
+	int i;
+	
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -342,7 +344,7 @@ void loadingScreen(){
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -350,7 +352,7 @@ void loadingScreen(){
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -960,11 +962,13 @@ void viewAttendanceSheetT(){
 
 void loadingScreenStudent(){
     system("cls");
-
+	
+	int i;
+	
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -972,7 +976,7 @@ void loadingScreenStudent(){
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -980,7 +984,7 @@ void loadingScreenStudent(){
     gotoxy(53,12);
     printf("Loading");
     gotoxy(60,12);
-    for(int i = 0; i <=2; i++){
+    for(i = 0; i <=2; i++){
         printf(".");
         sleep(1);
     }
@@ -1336,10 +1340,10 @@ void studentMenu(){
         printf("2. View Attendance Sheet");
         gotoxy(15,9);
         printf("3. View Grades");
-        gotoxy(15,11);
+        gotoxy(15,10);
         printf("4. Back to Home Screen");
 
-        gotoxy(15,13);
+        gotoxy(15,12);
         scanf("%d", &choice);
 
         switch(choice){

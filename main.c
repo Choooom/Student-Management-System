@@ -10,15 +10,18 @@ void bscs_ya2();
 void bsit_ya1();
 void bsit_ya2();
 
+
+int viewStudentListCondition = 1;
+char usernameG[20];
+
 struct bscs_ya1_list{
 
     char lastname[50];
     char firstname[50];
     char studentNumber[30];
-    int attendance;
-    int prelim;
-    int midterm;
-    int finals;
+    char prelim[30];
+    char midterm[30];
+    char finals[30];
 };
 
 //---------------------Struct for storing student deatils for Recording of Attendance
@@ -30,65 +33,88 @@ struct student{
     char vaccinationStatus[50];
     char contactNumber[15];
     char arrivalTime[50];
+    char course[20];
+    char section[20];
 
 };
 
-void viewStudentList(){
+void bscsList(){
 
     struct bscs_ya1_list student;
 
+        FILE *fpointer;
 
-    FILE *fpointer;
+        fpointer = fopen("BSCS_1-YA-1_Student_List.txt", "ab+");
 
-    fpointer = fopen("BSCS_1-YA-1_Student_List.txt", "ab+");
+        strcpy(student.lastname, "Dotingco");
+        strcpy(student.firstname, "Frank Lynuel");
+        strcpy(student.studentNumber, "02220003438");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Dotingco");
-    strcpy(student.firstname, "Frank Lynuel");
-    strcpy(student.studentNumber, "N/A");
-    student.attendance = 2;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        strcpy(student.lastname, "Ilaida");
+        strcpy(student.firstname, "Romille");
+        strcpy(student.studentNumber, "02220003439");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Ilaida");
-    strcpy(student.firstname, "Romille");
-    strcpy(student.studentNumber, "02220003439");
-    student.attendance = 5;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        strcpy(student.lastname, "Lim");
+        strcpy(student.firstname, "Jald");
+        strcpy(student.studentNumber, "02220003440");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Lim");
-    strcpy(student.firstname, "Jald");
-    strcpy(student.studentNumber, "N/A");
-    student.attendance = 3;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        strcpy(student.lastname, "Ong");
+        strcpy(student.firstname, "Noriel Edwards");
+        strcpy(student.studentNumber, "0220-1892-888");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Ong");
-    strcpy(student.firstname, "Noriel Edwards");
-    strcpy(student.studentNumber, "N/A");
-    student.attendance = 5;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        strcpy(student.lastname, "Torre");
+        strcpy(student.firstname, "Jayel");
+        strcpy(student.studentNumber, "02220003442");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Torre");
-    strcpy(student.firstname, "Jayel");
-    strcpy(student.studentNumber, "N/A");
-    student.attendance = 4;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        strcpy(student.lastname, "Zara");
+        strcpy(student.firstname, "Je Ace");
+        strcpy(student.studentNumber, "02220003443");
+        strcpy(student.prelim, "0");
+        strcpy(student.midterm, "0");
+        strcpy(student.finals, "0");
 
-    strcpy(student.lastname, "Zara");
-    strcpy(student.firstname, "Je Ace");
-    strcpy(student.studentNumber, "N/A");
-    student.attendance = 5;
+            fflush(stdin);
+            fwrite(&student,sizeof(student),1,fpointer);
 
-        fwrite(&student,sizeof(student),1,fpointer);
+        fclose(fpointer);
 
-    fclose(fpointer);
+}
 
-    //-----------------------------------------------------------
+void viewStudentList(){
 
     system("cls");
+
+    struct bscs_ya1_list student;
 
     FILE *fp;
     int i=1,j;
@@ -96,27 +122,31 @@ void viewStudentList(){
     gotoxy(15,5);
     printf("---View Student List---");
     gotoxy(15,7);
-    printf("Student No.       Name of Student          Attendance");
+    printf("Student No.        Name of Student             Prelim       Midterm     Finals");
     gotoxy(15,8);
-    printf("-----------------------------------------------------------");
+    printf("---------------------------------------------------------------------------------");
 
-    fp = fopen("Attendance Sheet.txt","rb+");
+    fp = fopen("BSCS_1-YA-1_Student_List.txt","rb+");
     if(fp == NULL){
         gotoxy(15,10);
         printf("Error opening file.");
         getch();
-        studentMenu();
+        teacherMenu();
     }
     j=10;
     int a = 20;
     sleep(1);
-    while(fread(&student,sizeof(student),1,fpointer) == 1){
+    while(fread(&student,sizeof(student),1,fp) == 1){
         gotoxy(15,j);
         printf("%s", student.studentNumber);
         gotoxy(15+a-1,j);
         printf("%s, %s", student.lastname, student.firstname);
-        gotoxy(15+(a+23),j);
-        printf("%d", student.attendance);
+        gotoxy(15+(a+27),j);
+        printf("%s", student.prelim);
+        gotoxy(15+(a+40),j);
+        printf("%s", student.midterm);
+        gotoxy(15+(a+52),j);
+        printf("%s", student.finals);
         i++;
         j++;
     }
@@ -129,12 +159,87 @@ void viewStudentList(){
     teacherMenu();
 
 }
+
+void recordStudentGrade(){
+
+    system("cls");
+
+    char student_number[20], response;
+    int status = 1, subStatus = 1;
+
+    FILE *fp;
+    struct bscs_ya1_list std;
+
+    while(status != 0){
+        subStatus = 1;
+        gotoxy(15,5);
+        printf("---Record Student Grade---");
+        gotoxy(15,7);
+        printf("Enter Student Number: ");
+        fflush(stdin);
+        gets(student_number);
+        fp = fopen("BSCS_1-YA-1_Student_List.txt","rb+");
+        if(fp == NULL){
+            gotoxy(15,9);
+            printf("Error opening file");
+            exit(1);
+        }
+        rewind(fp);
+        fflush(stdin);
+        while(fread(&std,sizeof(std),1,fp) == 1)
+        {
+            if(strcmp(student_number,std.studentNumber) == 0){
+                gotoxy(15,9);
+                printf("Enter Prelim Grade: ");
+                gets(std.prelim);
+                gotoxy(15,10);
+                printf("Enter Midterm Grade: ");
+                gets(std.midterm);
+                gotoxy(15,11);
+                printf("Enter Finals Grade: ");
+                gets(std.finals);
+                fseek(fp ,-sizeof(std),SEEK_CUR);
+                fwrite(&std,sizeof(std),1,fp);
+                break;
+            }
+        }
+    fclose(fp);
+
+        while(subStatus != 0){
+            gotoxy(15,13);
+            printf("Grades have been recorded. Would you like to record again?[Y/N] - ");
+            scanf(" %c", &response);
+
+            switch(toupper(response)){
+                case 'Y':
+                    system("cls");
+                    subStatus = 0;
+                    break;
+                case 'N':
+                    teacherMenu();
+                    subStatus = 0;
+                    break;
+                default:
+                    system("cls");
+                    continue;
+            }
+        }
+    }
+}
 //---------------------Teacher's Menu Function
 void teacherMenu(){
 
     system("cls");
 
     int choice;
+
+    FILE *fp;
+
+    fp = fopen("BSCS_1-YA-1_Student_List.txt", "r");
+
+        if(fp == NULL){
+            bscsList();
+        }
 
     gotoxy(15,5);
     printf("---Teacher Menu---");
@@ -161,6 +266,7 @@ void teacherMenu(){
             viewStudentList();
             break;
         case 3:
+            recordStudentGrade();
             break;
         case 4:
             break;
@@ -214,7 +320,7 @@ void teacherSecurity1(){
   };
 
   gotoxy(15,5);
-  printf("Log-In System");
+  printf("---Log-In System---");
 
   gotoxy(15,7);
   printf("Username: ");
@@ -275,7 +381,7 @@ void teacherSecurity(){
   };
 
   gotoxy(15,5);
-  printf("Log-In System");
+  printf("---Log-In System---");
 
   gotoxy(15,7);
   printf("Username: ");
@@ -370,6 +476,9 @@ void recordAttendance(){
                         printf("Enter Contact Number: ");
                         gets(std.contactNumber);
 
+                        strcpy(std.course, "BSCS");
+                        strcpy(std.section, "1-YA-1");
+
                         sleep(1);
 
                         time_t arrivaltime = time(NULL);
@@ -409,6 +518,9 @@ void recordAttendance(){
                         gotoxy(15,16);
                         printf("Enter Contact Number: ");
                         gets(std.contactNumber);
+
+                        strcpy(std.course, "BSCS");
+                        strcpy(std.section, "1-YA-2");
 
                         sleep(1);
 
@@ -457,6 +569,9 @@ void recordAttendance(){
                         printf("Enter Contact Number: ");
                         gets(std.contactNumber);
 
+                        strcpy(std.course, "BSIT");
+                        strcpy(std.section, "1-YA-1");
+
                         sleep(1);
 
                         time_t arrivaltime = time(NULL);
@@ -496,6 +611,9 @@ void recordAttendance(){
                         gotoxy(15,16);
                         printf("Enter Contact Number: ");
                         gets(std.contactNumber);
+
+                        strcpy(std.course, "BSIT");
+                        strcpy(std.section, "1-YA-2");
 
                         sleep(1);
 
@@ -568,7 +686,7 @@ void viewAttendanceSheetS(){
     gotoxy(15,5);
     printf("---View Attendance Sheet---");
     gotoxy(15,7);
-    printf("Student No.        Name of Student        Vaccination Status       Time of Arrival");
+    printf("Name of Student        Course and Section        Vaccination Status       Time of Arrival");
     gotoxy(15,8);
     printf("------------------------------------------------------------------------------------------------------");
 
@@ -584,12 +702,12 @@ void viewAttendanceSheetS(){
     sleep(1);
     while(fread(&std,sizeof(std),1,fp) == 1){
         gotoxy(15,j);
-        printf("%s", std.studentNumber);
-        gotoxy(15+a-1,j);
         printf("%s, %s", std.lastname, std.firstname);
-        gotoxy(15+(a+23),j);
+        gotoxy(15+(a+4),j);
+        printf("%s %s", std.course, std.section);
+        gotoxy(15+(a+30),j);
         printf("%s", std.vaccinationStatus);
-        gotoxy(15+(a+48),j);
+        gotoxy(15+(a+55),j);
         printf("%s", std.arrivalTime);
         i++;
         j++;
@@ -799,9 +917,363 @@ void viewAttendanceSheetT(){
 
 }
 
+
+void loadingScreenStudent(){
+    system("cls");
+
+    gotoxy(53,12);
+    printf("Loading");
+    gotoxy(60,12);
+    for(int i = 0; i <=2; i++){
+        printf(".");
+        sleep(1);
+    }
+    system("cls");
+    gotoxy(53,12);
+    printf("Loading");
+    gotoxy(60,12);
+    for(int i = 0; i <=2; i++){
+        printf(".");
+        sleep(1);
+    }
+    system("cls");
+    gotoxy(53,12);
+    printf("Loading");
+    gotoxy(60,12);
+    for(int i = 0; i <=2; i++){
+        printf(".");
+        sleep(1);
+    }
+    system("cls");
+
+    viewGrades();
+}
+
+void studentSecurity(){
+
+  system("cls");
+  int s = 0;
+  char username[20], password[20], p, buffer[5];
+  char tUsername1[20] = {
+    "02220003438",
+  };
+  char tUsername2[20] = {
+    "02220003439",
+  };
+    char tUsername3[20] = {
+    "02220003440",
+  };
+  char tUsername4[20] = {
+    "0220-1892-888",
+  };
+  char tUsername5[20] = {
+    "02220003442",
+  };
+  char tUsername6[20] = {
+    "02220003443",
+  };
+  char tPassword1[20] = {
+    "PseudosRebelz1",
+  };
+  char tPassword2[20] = {
+    "PseudosRebelz2",
+  };
+  char tPassword3[20] = {
+    "PseudosRebelz3",
+  };
+  char tPassword4[20] = {
+    "PseudosRebelz4",
+  };
+  char tPassword5[20] = {
+    "PseudosRebelz5",
+  };
+  char tPassword6[20] = {
+    "PseudosRebelz6",
+  };
+
+  gotoxy(15,5);
+  printf("---Log-In System---");
+
+  gotoxy(15,7);
+  printf("Student Number: ");
+
+  gets(buffer);
+  gets(usernameG);
+
+  gotoxy(15,8);
+  printf("Password: ");
+
+  while (p != 13) {
+    p = getch();
+    if (p != 13) {
+      putch('*');
+      password[s] = p;
+      s++;
+    }
+  }
+  password[s] = '\0';
+
+    if(strcmp(tUsername1, usernameG) == 0){
+      if(strcmp(tPassword1, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername2, usernameG) == 0){
+      if(strcmp(tPassword2, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername3, usernameG) == 0){
+      if(strcmp(tPassword3, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername4, usernameG) == 0){
+      if(strcmp(tPassword4, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername5, usernameG) == 0){
+      if(strcmp(tPassword5, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername6, usernameG) == 0){
+      if(strcmp(tPassword6, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }
+
+}
+
+void studentSecurity1(){
+
+  system("cls");
+  int s = 0;
+  char username[20], password[20], p, buffer[5];
+  char tUsername1[20] = {
+    "02220003438",
+  };
+  char tUsername2[20] = {
+    "02220003439",
+  };
+    char tUsername3[20] = {
+    "02220003440",
+  };
+  char tUsername4[20] = {
+    "0220-1892-888",
+  };
+  char tUsername5[20] = {
+    "02220003442",
+  };
+  char tUsername6[20] = {
+    "02220003443",
+  };
+  char tPassword1[20] = {
+    "PseudosRebelz1",
+  };
+  char tPassword2[20] = {
+    "PseudosRebelz2",
+  };
+  char tPassword3[20] = {
+    "PseudosRebelz3",
+  };
+  char tPassword4[20] = {
+    "PseudosRebelz4",
+  };
+  char tPassword5[20] = {
+    "PseudosRebelz5",
+  };
+  char tPassword6[20] = {
+    "PseudosRebelz6",
+  };
+
+  gotoxy(15,5);
+  printf("---Log-In System---");
+
+  gotoxy(15,7);
+  printf("Student Number: ");
+
+  gets(username);
+
+  gotoxy(15,8);
+  printf("Password: ");
+
+  while (p != 13) {
+    p = getch();
+    if (p != 13) {
+      putch('*');
+      password[s] = p;
+      s++;
+    }
+  }
+  password[s] = '\0';
+
+    if(strcmp(tUsername1, usernameG) == 0){
+      if(strcmp(tPassword1, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername2, usernameG) == 0){
+      if(strcmp(tPassword2, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername3, usernameG) == 0){
+      if(strcmp(tPassword3, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername4, usernameG) == 0){
+      if(strcmp(tPassword4, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername5, usernameG) == 0){
+      if(strcmp(tPassword5, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }else if(strcmp(tUsername6, usernameG) == 0){
+      if(strcmp(tPassword6, password) == 0){
+        gotoxy(15, 9);
+        printf("Log-In Succesful.");
+        sleep(2);
+        loadingScreenStudent();
+      }else{
+        gotoxy(15, 9);
+        printf("Invalid Account. Try Again.");
+        getch();
+        studentSecurity1();
+      }
+    }
+
+}
+
 void viewGrades(){
     system("cls");
-    printf("This is View Grades");
+
+    char student_number[20], response;
+    int status = 1, subStatus = 1;
+
+    FILE *fp;
+    struct bscs_ya1_list std;
+
+    while(status != 0){
+        subStatus = 1;
+        gotoxy(15,5);
+        printf("---View Student Grades---");
+        fp = fopen("BSCS_1-YA-1_Student_List.txt","rb+");
+        if(fp == NULL){
+            gotoxy(15,9);
+            printf("Error opening file");
+            exit(1);
+        }
+        rewind(fp);
+        fflush(stdin);
+        while(fread(&std,sizeof(std),1,fp) == 1)
+        {
+            if(strcmp(usernameG,std.studentNumber) == 0){
+                gotoxy(15,7);
+                printf("-------------------------------------------");
+                gotoxy(15,9);
+                printf("Name: %s, %s", std.lastname, std.firstname);
+                gotoxy(15,11);
+                printf("Prelim Grade: %s", std.prelim);
+                gotoxy(15,12);
+                printf("Midterm Grade: %s", std.midterm);
+                gotoxy(15,13);
+                printf("Finals Grade: %s", std.finals);
+                fseek(fp ,-sizeof(std),SEEK_CUR);
+                fwrite(&std,sizeof(std),1,fp);
+                break;
+            }
+        }
+        fclose(fp);
+
+        gotoxy(15,15);
+        printf("Press any key to continue...");
+        getch();
+        studentMenu();
+    }
 }
 
 void viewAcademicCalendar(){
@@ -824,10 +1296,8 @@ void studentMenu(){
         printf("2. View Attendance Sheet");
         gotoxy(15,9);
         printf("3. View Grades");
-        gotoxy(15,10);
-        printf("4. View Academic Calendar");
         gotoxy(15,11);
-        printf("5. Back to Home Screen");
+        printf("4. Back to Home Screen");
 
         gotoxy(15,13);
         scanf("%d", &choice);
@@ -841,12 +1311,9 @@ void studentMenu(){
                 viewAttendanceSheetS();
                 break;
             case 3:
-                viewGrades();
+                studentSecurity();
                 break;
             case 4:
-                viewAcademicCalendar();
-                break;
-            case 5:
                 main();
                 break;
             default:

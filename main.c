@@ -13,6 +13,13 @@ void bsit_ya2();
 
 int viewStudentListCondition = 1;
 char usernameG[20];
+char teacherUsername[20] = {
+    "Sheinn Reyes"
+};
+char teacherPassword[20] = {
+    "PseudosRebelz"
+};
+
 
 struct bscs_ya1_list{
 
@@ -226,6 +233,50 @@ void recordStudentGrade(){
         }
     }
 }
+
+void change(){
+
+    system("cls");
+
+    char currentPassword[50];
+    char newPassword[50], newUsername[50];
+    char buffer;
+
+    gotoxy(15,5);
+    printf("---Change Username and/or Password---");
+
+    gotoxy(15,7);
+    printf("------------------------------------------------");
+
+    gotoxy(15,9);
+    printf("Enter Current Password: ");
+    scanf(" %[^\n]", &currentPassword);
+
+    if(strcmp(currentPassword, teacherPassword) == 0){
+        gotoxy(15,11);
+        printf("Enter New Username: ");
+        scanf(" %[^\n]", &newUsername);
+        gotoxy(15,12);
+        printf("Enter New Password: ");
+        scanf(" %[^\n]", &newPassword);
+
+        strcpy(teacherUsername, newUsername);
+        strcpy(teacherPassword, newPassword);
+
+        gotoxy(15,14);
+        printf("------------------------------------------------");
+
+        gotoxy(15,16);
+        printf("Username and/or Password Successfully Changed.");
+        getch();
+        teacherSecurity();
+    }else{
+        gotoxy(15,11);
+        printf("Incorrect Password");
+        getch();
+        teacherMenu();
+    }
+}
 //---------------------Teacher's Menu Function
 void teacherMenu(){
 
@@ -269,6 +320,7 @@ void teacherMenu(){
             recordStudentGrade();
             break;
         case 4:
+            change();
             break;
         case 5:
             main();
@@ -312,12 +364,6 @@ void teacherSecurity1(){
   system("cls");
   int s = 0;
   char username[20], password[20], p, buffer[5];
-  char tUsername[20] = {
-    "Sheinn Reyes"
-  };
-  char tPassword[20] = {
-    "PseudosRebelz"
-  };
 
   gotoxy(15,5);
   printf("---Log-In System---");
@@ -340,8 +386,8 @@ void teacherSecurity1(){
   }
   password[s] = '\0';
 
-    if(strcmp(tUsername, username) == 0){
-      if(strcmp(tPassword, password) == 0){
+    if(strcmp(teacherUsername, username) == 0){
+      if(strcmp(teacherPassword, password) == 0){
         gotoxy(15, 9);
         printf("Log-In Succesful.");
         sleep(2);
@@ -352,8 +398,8 @@ void teacherSecurity1(){
         getch();
         teacherSecurity1();
       }
-    }else if(strcmp(tUsername, username) != 0){
-        if(strcmp(tPassword, password) == 0){
+    }else if(strcmp(teacherUsername, username) != 0){
+        if(strcmp(teacherPassword, password) == 0){
           gotoxy(15, 9);
           printf("Invalid Username. Try Again.");
           getch();
@@ -373,12 +419,6 @@ void teacherSecurity(){
   system("cls");
   int s = 0;
   char username[20], password[20], p, buffer[5];
-  char tUsername[20] = {
-    "Sheinn Reyes"
-  };
-  char tPassword[20] = {
-    "PseudosRebelz"
-  };
 
   gotoxy(15,5);
   printf("---Log-In System---");
@@ -402,8 +442,8 @@ void teacherSecurity(){
   }
   password[s] = '\0';
 
-    if(strcmp(tUsername, username) == 0){
-      if(strcmp(tPassword, password) == 0){
+    if(strcmp(teacherUsername, username) == 0){
+      if(strcmp(teacherPassword, password) == 0){
         gotoxy(15, 9);
         printf("Log-In Succesful.");
         sleep(2);
@@ -414,8 +454,8 @@ void teacherSecurity(){
         getch();
         teacherSecurity1();
       }
-    }else if(strcmp(tUsername, username) != 0){
-        if(strcmp(tPassword, password) == 0){
+    }else if(strcmp(teacherUsername, username) != 0){
+        if(strcmp(teacherPassword, password) == 0){
           gotoxy(15, 9);
           printf("Invalid Username. Try Again.");
           getch();
